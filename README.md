@@ -34,14 +34,18 @@ Step 4: Run the migrations
 ```
 ./manage.py migrate
 ```
+Step 5: Create superuser
 
-Step 5: Start the backend
+```
+./manage.py createsuperuser
+```
+Step 6: Start the backend
 
 ```
 ./manage.py runserver
 ```
 
-Step 6: Start the frontend
+Step 7: Start the frontend
 
 ```
 cd frontend
