@@ -23,15 +23,18 @@ class ListReporte extends Component{
                            </tr>
                        </thead>
                        <tbody>
+                           
                        {
-                         data && data.map(item => (
+                         data
+                         ?
+                         data.map(item => (
                                
                                 <tr>
                                 <td>{item.usuario}</td>
                                 <td>{item.promedio}</td>
                                 </tr>
                             ))
-                          
+                          : console.log("no tiene datos")
                     }
                            
                        </tbody>

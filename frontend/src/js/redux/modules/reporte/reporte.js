@@ -8,6 +8,7 @@ const SET_DATA = 'SET_DATA';
 const SET_LOADER = 'SET_LOADER';
 const SET_PAGE = 'SET_PAGE';
 const SET_PROMEDIO_NO= 'SET_PROMEDIO_NO'
+const SET_TOP='SET_TOP'
 
 const listar = ( page = 1) => (dispatch) => {
 
@@ -21,6 +22,10 @@ const listar = ( page = 1) => (dispatch) => {
     api.get('cotizacion/total_numero').then((response)=>{
 
         dispatch({type: SET_PROMEDIO_NO, promedio : response.data})
+    })
+    api.get('historial/top_producto').then((response)=>{
+
+        dispatch({type: SET_TOP, top : response.data})
     })
     .catch(() => {
     }).finally(()=>{
@@ -48,6 +53,12 @@ export const reducers = {
             promedio,
         };
     },
+    [SET_TOP]: (state, { top }) => {
+        return {
+            ...state,
+            top,
+        };
+    },
     [SET_LOADER]: (state, { loader }) => {
         return {
             ...state,
@@ -67,7 +78,8 @@ export const initialState = {
     loader: false,
     data: [],
     page: 1,
-    promedio:0
+    promedio:0,
+    top:[]
 };
 
 export default handleActions(reducers, initialState);

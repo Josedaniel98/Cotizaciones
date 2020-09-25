@@ -68,20 +68,33 @@ const registrarCotizacion = () => (dispatch, getStore) =>{
     const total = getStore().cotizacion.total;
     console.log(producto)
     let pro=[]   
+    let products=[]
     producto.forEach((item)=>{
         pro.push(
             item.id
         )
+        products=[
+             {
+                 id_producto: item.id,
+                 nombre: item.nombre
+             }
+         ]
+    })
+    products.forEach((item)=>{
+        api.post('historial', item)
     })
     const data ={
         usuario:usuario,
         total: total,
         productos: pro
     }
-    console.log("datos registro", data)
+    console.log("producto", products)
+   
     api.post('cotizacion', data).then((response) => {
         NotificationManager.success('Cotizacion registrada correctamente', 'Éxito', 1000);
         dispatch(push("/cotizacion"));
+        dispatch({type: SET_PRODUCTO, producto: []})
+        dispatch({type: SET_TOTAL, total: 0})
     }).catch((error) => {
         console.log(error);
         NotificationManager.error('error', 'ERROR', 0);
